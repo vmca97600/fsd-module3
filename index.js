@@ -8,9 +8,8 @@
 //     console.log("Processing data for: " + name);
 
 //     setTimeout(function () {
-//         console.log("Data processed successfully.");
-
 //         callback();
+//         console.log("Data processed successfully.");
 //     }, 2000);
 // }
 
@@ -20,6 +19,23 @@
 
 // // Calling function with callback
 // processData("Vikash", displayMessage);
+
+              // OR
+
+// function placeOrder(name, callback) {
+//     console.log("Order received. Preparing food for: " + name);
+
+//     setTimeout(function () {
+//         console.log("Food is ready for delivery.");
+//         callback(name);
+//     }, 2000);
+// }
+
+// function notifyUser(name) {
+//     console.log("Food will be delivered shortly to: " + name);
+// }
+
+// placeOrder("Vikash", notifyUser);
 
 
 
@@ -113,7 +129,7 @@
 // });
 
 
- 
+
 
 // 9.  Node.js program to handle 3 different HTTP requests
 
@@ -234,51 +250,51 @@
 
 // 12. Write a program to create a registration form and display the submitted information on the next page. 
 
-// const http = require("http");
-// const fs = require("fs");
-// const querystring = require("querystring");
+const http = require("http");
+const fs = require("fs");
+const querystring = require("querystring");
 
-// let submittedData = {};
+let submittedData = {};
 
-// const server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
 
-//     if (req.method === "GET" && req.url === "/") {
-//         fs.readFile("register.html", (err, data) => {
-//             res.writeHead(200, {"Content-Type": "text/html"});
-//             res.write(data);
-//             res.end();
-//         });
-//     }
+    if (req.method === "GET" && req.url === "/") {
+        fs.readFile("register.html", (err, data) => {
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.write(data);
+            res.end();
+        });
+    }
 
-//     else if (req.method === "POST" && req.url === "/submit") {
-//         let body = "";
+    else if (req.method === "POST" && req.url === "/submit") {
+        let body = "";
 
-//         req.on("data", chunk => {
-//             body += chunk.toString();
-//         });
+        req.on("data", chunk => {
+            body += chunk.toString();
+        });
 
-//         req.on("end", () => {
-//             submittedData = querystring.parse(body);
+        req.on("end", () => {
+            submittedData = querystring.parse(body);
 
-//             res.writeHead(302, { Location: "/result" });
-//             res.end();
-//         });
-//     }
+            res.writeHead(302, { Location: "/result" });
+            res.end();
+        });
+    }
 
-//     else if (req.url === "/result") {
-//         res.writeHead(200, {"Content-Type": "text/html"});
-//         res.write("<h2>Registration Details</h2>");
-//         res.write("Name: " + submittedData.name + "<br>");
-//         res.write("Email: " + submittedData.email + "<br>");
-//         res.write("Course: " + submittedData.course);
-//         res.end();
-//     }
+    else if (req.url === "/result") {
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.write("<h2>Registration Details</h2>");
+        res.write("Name: " + submittedData.name + "<br>");
+        res.write("Email: " + submittedData.email + "<br>");
+        res.write("Course: " + submittedData.course);
+        res.end();
+    }
 
-// });
+});
 
-// server.listen(3000, () => {
-//     console.log("Server running at http://localhost:3000/");
-// });
+server.listen(3000, () => {
+    console.log("Server running at http://localhost:3000/");
+});
 
 
 
@@ -333,32 +349,32 @@
 
 
 // 15.Write a program to create a registration form and display the submitted information on the page using express.. 
-const express = require("express");
-const path = require("path");
+// const express = require("express");
+// const path = require("path");
 
-const app = express();
+// const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "register.html"));
-});
-app.post("/submit", (req, res) => {
+// app.use(express.urlencoded({ extended: true }));
+// app.get("/", (req, res) => {
+//     res.sendFile(path.join(__dirname, "register.html"));
+// });
+// app.post("/submit", (req, res) => {
 
-    const name = req.body.name;
-    const email = req.body.email;
-    const course = req.body.course;
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const course = req.body.course;
 
-    res.send(`
-        <h2>Registration Details</h2>
-        Name: ${name} <br>
-        Email: ${email} <br>
-        Course: ${course}
-    `);
-});
+//     res.send(`
+//         <h2>Registration Details</h2>
+//         Name: ${name} <br>
+//         Email: ${email} <br>
+//         Course: ${course}
+//     `);
+// });
 
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
-});
+// app.listen(3000, () => {
+//     console.log("Server running at http://localhost:3000/");
+// });
 
 
 
